@@ -1,12 +1,43 @@
-case class Car(make: String, model: String, speed: Double)
+// Base Car class
+class Car(val make: String, val model: String) {
+  // Properties
+  var speed: Double = 0.0
 
-val car1 = Car("Toyota", "Corolla", 120.5)
-val car2 = Car("Honda", "Civic", 110.2)
+  // Methods
+  def accelerate(acceleration: Double): Unit = {
+    speed += acceleration
+  }
 
-if (car1.speed > car2.speed) {
-  println(s"${car1.make} ${car1.model} is faster than ${car2.make} ${car2.model}.")
-} else if (car1.speed < car2.speed) {
-  println(s"${car2.make} ${car2.model} is faster than ${car1.make} ${car1.model}.")
-} else {
-  println("Both cars have the same speed.")
+  def brake(deceleration: Double): Unit = {
+    speed -= deceleration
+  }
+}
+
+// Derived SportsCar class
+class SportsCar(make: String, model: String) extends Car(make, model) {
+  // Additional properties specific to sports cars
+  var turbocharged: Boolean = true
+}
+
+// Derived FamilyCar class
+class FamilyCar(make: String, model: String) extends Car(make, model) {
+  // Additional properties specific to family cars
+  var passengers: Int = 4
+}
+
+// Example usage
+object CarComparisonApp {
+  def main(args: Array[String]): Unit = {
+    // Create instances of different cars
+    val sportsCar = new SportsCar("Ferrari", "458")
+    val familyCar = new FamilyCar("Toyota", "Camry")
+
+    // Accelerate the cars
+    sportsCar.accelerate(50.0)
+    familyCar.accelerate(30.0)
+
+    // Print the speeds
+    println(s"Sports Car Speed: ${sportsCar.speed} mph")
+    println(s"Family Car Speed: ${familyCar.speed} mph")
+  }
 }
